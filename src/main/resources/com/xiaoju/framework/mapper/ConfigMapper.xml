@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoju.framework.mapper.ConfigMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoju.framework.entity.dto.Config">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="prompt" jdbcType="VARCHAR" property="prompt" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="gmt_created" jdbcType="DATE" property="gmtCreated" />
+    <result column="gmt_updated" jdbcType="DATE" property="gmtUpdated" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `type`, `key`,`prompt`, `value`, `status`, gmt_created, gmt_updated
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from config
+    where `key` = #{key,jdbcType=VARCHAR} and `status` = 1
+  </select>
+  <select id="getConfig" resultType="com.xiaoju.framework.entity.dto.Config">
+    select
+    <include refid="Base_Column_List" />
+    from config
+    where `key` = #{key, jdbcType=VARCHAR} and `type`= #{type,jdbcType=VARCHAR} and `status` = 1
+    order by id desc limit 1
+  </select>
+
+  <select id="getAllByType" resultType="com.xiaoju.framework.entity.dto.Config">
+    select
+    <include refid="Base_Column_List" />
+    from config
+    where `type`= #{type,jdbcType=VARCHAR} and `status` = 1
+    order by id desc
+  </select>
+
+  <insert id="insert" parameterType="com.xiaoju.framework.entity.dto.Config">
+    insert into config (id, `type`, `key`, `value`,`status`, gmt_created,gmt_updated)
+    values
+    (
+     #{id,jdbcType=BIGINT},#{type,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR},
+     #{status,jdbcType=INTEGER},#{gmtCreated,jdbcType=TIMESTAMP}, #{gmtUpdated,jdbcType=TIMESTAMP}
+    )
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoju.framework.entity.dto.Config">
+    update config
+    <set>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        `value` = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="gmtUpdated != null">
+        gmt_updated = #{gmtUpdated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete
+    from config
+    where `id`= #{id,jdbcType=BIGINT};
+  </delete>
+</mapper>

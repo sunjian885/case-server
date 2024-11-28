@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoju.framework.mapper.ExecRecordDetailMapper">
+    <resultMap id="BaseResultMap" type="com.xiaoju.framework.entity.persistent.ExecRecordDetail">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="case_id" jdbcType="BIGINT" property="caseId" />
+        <result column="record_id" jdbcType="BIGINT" property="recordId" />
+        <result column="userid" jdbcType="BIGINT" property="userid" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="env" jdbcType="INTEGER" property="env" />
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+        <result column="exec_count" jdbcType="INTEGER" property="execCount" />
+        <result column="success_count" jdbcType="INTEGER" property="successCount" />
+        <result column="fail_count" jdbcType="INTEGER" property="failCount" />
+        <result column="block_count" jdbcType="INTEGER" property="blockCount" />
+        <result column="ignore_count" jdbcType="INTEGER" property="ignoreCount" />
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xiaoju.framework.entity.persistent.ExecRecordDetail">
+        <result column="case_content" jdbcType="LONGVARCHAR" property="caseContent" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, case_id, record_id,username, userid, env, is_delete, exec_count, success_count, fail_count, block_count, ignore_count,
+     gmt_created, gmt_modified, version
+    </sql>
+    <sql id="Blob_Column_List">
+        case_content
+    </sql>
+
+    <insert id="insert" parameterType="com.xiaoju.framework.entity.persistent.ExecRecordDetail">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert into exec_record_detail
+        <trim prefix="(" suffix=") " suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="caseId != null">
+                case_id,
+            </if>
+            <if test="recordId != null">
+                record_id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="userid != null">
+                userid,
+            </if>
+            <if test="env != null">
+                env,
+            </if>
+            <if test="caseContent != null">
+                case_content,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="execCount != null">
+                exec_count,
+            </if>
+            <if test="failCount != null">
+                fail_count,
+            </if>
+            <if test="successCount != null">
+                success_count,
+            </if>
+            <if test="blockCount != null">
+                block_count,
+            </if>
+            <if test="ignoreCount != null">
+                ignore_count,
+            </if>
+            <if test="gmtCreated != null">
+                gmt_created,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="version != null">
+                version
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="caseId != null">
+                #{caseId,jdbcType=BIGINT},
+            </if>
+            <if test="recordId != null">
+                #{recordId,jdbcType=BIGINT},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=BIGINT},
+            </if>
+            <if test="env != null">
+                #{env,jdbcType=INTEGER},
+            </if>
+            <if test="caseContent != null">
+                #{caseContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="execCount != null">
+                #{execCount,jdbcType=INTEGER},
+            </if>
+            <if test="failCount != null">
+                #{failCount,jdbcType=INTEGER},
+            </if>
+            <if test="successCount != null">
+                #{successCount,jdbcType=INTEGER},
+            </if>
+            <if test="blockCount != null">
+                #{blockCount,jdbcType=INTEGER},
+            </if>
+            <if test="ignoreCount != null">
+                #{ignoreCount,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreated != null">
+                #{gmtCreated,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
+
+
+
+
+    <update id="update" parameterType="com.xiaoju.framework.entity.persistent.ExecRecordDetail">
+        update exec_record_detail
+        <set>
+            <if test="execRecordDetail.isDelete != null">
+                is_delete = #{execRecordDetail.isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="execRecordDetail.execCount != null">
+                exec_count = #{execRecordDetail.execCount,jdbcType=INTEGER},
+            </if>
+            <if test="execRecordDetail.successCount != null">
+                success_count = #{execRecordDetail.successCount,jdbcType=INTEGER},
+            </if>
+            <if test="execRecordDetail.failCount != null">
+                fail_count = #{execRecordDetail.failCount,jdbcType=INTEGER},
+            </if>
+            <if test="execRecordDetail.blockCount != null">
+                block_count = #{execRecordDetail.blockCount,jdbcType=INTEGER},
+            </if>
+            <if test="execRecordDetail.ignoreCount != null">
+                ignore_count = #{execRecordDetail.ignoreCount,jdbcType=INTEGER},
+            </if>
+            <if test="execRecordDetail.gmtModified != null">
+                gmt_modified = #{execRecordDetail.gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="execRecordDetail.caseContent != null">
+                case_content = #{execRecordDetail.caseContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="execRecordDetail.version != null">
+                version = #{execRecordDetail.version,jdbcType=INTEGER},
+            </if>
+        </set>
+        <where>
+            id = #{execRecordDetail.id,jdbcType=BIGINT}
+            <if test="oldVersion != null">
+                and version = #{oldVersion,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
+
+
+
+    <delete id="delete" parameterType="java.lang.Long">
+        update exec_record_detail set is_delete =1
+        where record_id = #{recordId,jdbcType=BIGINT}
+    </delete>
+
+    <select id="searchExecRecordDetailsByUserid"
+            resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />, <include refid="Blob_Column_List" />
+        from
+            exec_record_detail
+        <where>
+            is_delete = 0
+            <if test="userid != null">
+                and userid = #{userid, jdbcType=BIGINT}
+            </if>
+            <if test="beginTime != null">
+                and gmt_created >= #{beginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                and gmt_created <![CDATA[<=]]> #{endTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="searchExecRecordDetails" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>, <include refid="Blob_Column_List" />
+        from
+        exec_record_detail
+        <where>
+            is_delete = 0
+            <if test="beginTime != null">
+                and gmt_created >= #{beginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                and gmt_created <![CDATA[<=]]> #{endTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <select id="searchDetailsByRecordIdAndUserid"
+            resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>, <include refid="Blob_Column_List" />
+        from
+        exec_record_detail
+        <where>
+            is_delete = 0
+            <if test="recordId != null">
+                and record_id = #{recordId,jdbcType=BIGINT}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid,jdbcType=BIGINT}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <select id="searchExecCountsByUserids"
+            resultMap="BaseResultMap">
+        select
+            userid, username, exec_count, success_count, fail_count, block_count, ignore_count
+        from
+            exec_record_detail
+        <where>
+            is_delete = 0
+            and userid in
+            <foreach collection="userids" item="userid" index="index" open="(" close=")" separator=",">
+                #{userid,jdbcType=BIGINT}
+            </foreach>
+            <if test="beginTime != null">
+                and gmt_created >= #{beginTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                and gmt_created <![CDATA[<=]]> #{endTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,10 @@
+.idea
+logs
+target
+Users
+temp
+/src/main/resources/web/node_modules/
+/target/
+/temp/
+/Users/
+/logs/
